@@ -7,8 +7,11 @@ public class MovieDTO {
 	private String path;
 	
 	public MovieDTO(String dif, String title, String path) {
+		//난이도를 나타냄
 		this.dif = dif;
+		// 제목
 		this.title = title;
+		// 경로 
 		this.path = path;
 	}
 	public String getDif() {

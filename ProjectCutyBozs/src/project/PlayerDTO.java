@@ -5,6 +5,7 @@ public class PlayerDTO {
 	private String pw;
 	private String nick;
 	private int score;
+	
 	public PlayerDTO(String id, String pw, String nick, int score) {
 		this.id = id;
 		this.pw = pw;

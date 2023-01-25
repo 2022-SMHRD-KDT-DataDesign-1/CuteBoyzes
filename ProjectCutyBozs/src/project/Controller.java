@@ -8,12 +8,14 @@ import javazoom.jl.player.MP3Player;
 
 public class Controller {
 	int now = 0;
-
+	// bb은 뭘 뜻 하는 거지?
 	boolean bb = true;
+	//
 	DAO dao = new DAO();
 	Scanner sc = new Scanner(System.in);
 	// mp3 파일 재생 라이브러리 -- > musicPlayer 참조
 	MP3Player mp3 = new MP3Player();
+	
 
 	// MovieDTO값을 받는 ArrayList 초기화
 	ArrayList<MovieDTO> movielist = new ArrayList<>();
@@ -45,10 +47,12 @@ public class Controller {
 		
 		// DAO 객체 생성
 		DAO dao = new DAO();
+		
 		// 게임시작 여부 변수 초기화
 		String yn;
+		
 		// 난이도 변수 초기화
-		int dif;
+		int lebel;
 
 		boolean res = dao.login(dto);
 
@@ -58,9 +62,9 @@ public class Controller {
 			System.out.print("게임시작 Y / N >> ");
 			yn = sc.next();
 			if (yn.equals("Y")) {
-				System.out.println("룰어쩌고 이러쿵저러쿵");
-				System.out.println("룰어쩌고 이러쿵저러쿵");
-				System.out.println("룰어쩌고 이러쿵저러쿵");
+				System.out.println("들려주는 명대사를 듣고");
+				System.out.println("어떤 영화인지 맞춰보세요!!!");
+				System.out.println("(출제범위: CUTEBOY들이 본 영화 위주)");
 				try {
 					// 3초 지연하는 코드
 					TimeUnit.SECONDS.sleep(3);
@@ -71,17 +75,17 @@ public class Controller {
 
 				System.out.println("난이도 선택");
 				System.out.println("[1] 상 [2] 중 [3] 하  >> ");
-				dif = sc.nextInt();
+				lebel = sc.nextInt();
 
 				Controller ct = new Controller();
-				if (dif == 1) {
+				if (lebel == 1) {
 					
-					
+					System.out.println("상 ㅋㅋ");
 					// ct.안에있는 play메소드 호출
 					play();
-				} else if (dif == 2) {
+				} else if (lebel == 2) {
 					System.out.println("중 ㅋㅋ");
-				} else if (dif == 3) {
+				} else if (lebel == 3) {
 					System.out.println("하 ㅋㅋ");
 				}
 
