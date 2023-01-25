@@ -2,23 +2,22 @@ package project;
 
 public class MovieDTO {
 	
-	private String dif;
+	private String level;
 	private String title;
 	private String path;
 	
-	public MovieDTO(String dif, String title, String path) {
-		//난이도를 나타냄
-		this.dif = dif;
-		// 제목
+	
+	public MovieDTO(String level, String title, String path) {
+		super();
+		this.level = level;
 		this.title = title;
-		// 경로 
 		this.path = path;
 	}
-	public String getDif() {
-		return dif;
+	public String getLevel() {
+		return level;
 	}
-	public void setDif(String dif) {
-		this.dif = dif;
+	public void setLevel(String level) {
+		this.level = level;
 	}
 	public String getTitle() {
 		return title;
@@ -33,5 +32,4 @@ public class MovieDTO {
 		this.path = path;
 	}
 	
-
 }
