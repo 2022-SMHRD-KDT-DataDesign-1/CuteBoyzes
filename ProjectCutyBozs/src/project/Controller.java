@@ -36,6 +36,8 @@ public class Controller {
 
 	// 로그인
 	public void login(PlayerDTO dto) {
+		MP3Player mp3 = new MP3Player();
+
 
 		// DAO 객체 생성
 		DAO dao = new DAO();
@@ -49,21 +51,86 @@ public class Controller {
 		boolean res = dao.login(dto);
 
 		if (res) {
-			System.out.println("로그인 성공");
+			
 
+			System.out.println("로그인 성공");
+			if (mp3.isPlaying()) {
+				mp3.stop();
+			}
+			mp3.play(".\\\\bgm\\success.mp3");
+			try {
+				// 1초 지연하는 코드
+				TimeUnit.SECONDS.sleep(1);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			mp3.stop();
+			
 			System.out.print("게임시작 Y / N >> ");
 			yn = sc.next();
-			if (yn.equals("Y")) {
-				System.out.println("들려주는 명대사를 듣고");
-				System.out.println("어떤 영화인지 맞춰보세요!!!");
-				System.out.println("(출제범위: CUTEBOY들이 본 영화 위주)");
+			if (mp3.isPlaying()) {
+				mp3.stop();
+			}
+			mp3.play(".\\\\bgm\\select.mp3");
+			try {
+				// 1초 지연하는 코드
+				TimeUnit.SECONDS.sleep(2);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			mp3.stop();
+
+			
+			
+			if (yn.equals("Y")||yn.equals("y")) {
+				System.out.println("      들려주는 명대사를 듣고");
+				if (mp3.isPlaying()) {
+					mp3.stop();
+				}
+				mp3.play(".\\\\bgm\\rule.mp3");
+
 				try {
-					// 3초 지연하는 코드
-					TimeUnit.SECONDS.sleep(3);
+					// 1초 지연하는 코드
+					TimeUnit.SECONDS.sleep(1);
 
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				mp3.stop();
+
+				System.out.println("    어떤 영화인지 맞춰보세요!!!");
+				
+				if (mp3.isPlaying()) {
+					mp3.stop();
+				}
+				mp3.play(".\\\\bgm\\rule.mp3");
+
+				try {
+					// 3초 지연하는 코드
+					TimeUnit.SECONDS.sleep(1);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				mp3.stop();
+
+				System.out.println("(출제범위: CUTEBOY들이 본 영화 위주)");
+				
+				if (mp3.isPlaying()) {
+					mp3.stop();
+				}
+				mp3.play(".\\\\bgm\\rule.mp3");
+
+				try {
+					// 3초 지연하는 코드
+					TimeUnit.SECONDS.sleep(1);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				mp3.stop();
 
 				System.out.println("난이도 선택");
 				System.out.println("[1] 상 [2] 중 [3] 하  >> ");
@@ -86,7 +153,7 @@ public class Controller {
 				}
 
 			} else if (yn.equals("N")) {
-				System.out.println("로그아웃");
+				System.out.println("종료합니당");
 
 			}
 
@@ -191,6 +258,20 @@ public class Controller {
 
 			if (arr[cnt].equals(dto_movie.getTitle())) {
 				System.out.println("정답 ㅋㅋ ");
+				
+				if (mp3.isPlaying()) {
+					mp3.stop();
+				}
+				mp3.play(".\\\\bgm\\hahaha.mp3");
+
+				try {
+					// 3초 지연하는 코드
+					TimeUnit.SECONDS.sleep(1);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				mp3.stop();
 				// 정답일때마다 10점씩 누적 축적
 				score += 10;
 				try {
@@ -353,7 +434,7 @@ public class Controller {
 			MovieDTO dto_movie = dao.h_movie_dao(raarr[i]);
 			mp3.play(dto_movie.getPath());
 			try {
-				TimeUnit.SECONDS.sleep(8);
+				TimeUnit.SECONDS.sleep(2);
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -368,7 +449,7 @@ public class Controller {
 				dto_movie = dao.h_movie_dao(raarr[i]);
 				mp3.play(dto_movie.getPath());
 				try {
-					TimeUnit.SECONDS.sleep(8);
+					TimeUnit.SECONDS.sleep(2);
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -379,9 +460,24 @@ public class Controller {
 			System.out.print("정답입력 >>");
 
 			arr[cnt] = sc.nextLine();
+			if (mp3.isPlaying()) {
+				mp3.stop();
+			}
+			mp3.play(".\\\\bgm\\hahaha.mp3");
+
+			try {
+				// 3초 지연하는 코드
+				TimeUnit.SECONDS.sleep(1);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			mp3.stop();
 
 			if (arr[cnt].equals(dto_movie.getTitle())) {
+
 				System.out.println("정답 ㅋㅋ ");
+			
 				score += 10;
 				try {
 					TimeUnit.SECONDS.sleep(2);
@@ -391,8 +487,24 @@ public class Controller {
 				}
 			} else {
 				System.out.println("땡 ㅋㅋ");
-				score = 0;
+				if (mp3.isPlaying()) {
+					mp3.stop();
+				}
+				mp3.play(".\\\\bgm\\rule.mp3");
 				
+				
+				
+
+				try {
+					// 3초 지연하는 코드
+					TimeUnit.SECONDS.sleep(1);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				mp3.stop();
+
+				score = 0;
 				System.out.println("정답은 " + dto_movie.getTitle() + "입니당");
 				try {
 					TimeUnit.SECONDS.sleep(2);
@@ -402,6 +514,7 @@ public class Controller {
 				}
 
 			}
+			
 			sum += score;
 			cnt++;
 		}

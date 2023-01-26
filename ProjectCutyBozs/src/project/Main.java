@@ -2,16 +2,34 @@ package project;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+
+import javazoom.jl.player.MP3Player;
 
 public class Main {
 
 	public static void main(String[] args) {
+		MP3Player mp3 = new MP3Player();
 
 		Scanner sc = new Scanner(System.in);
 		int select = 0;
 		// 컨트롤러 객체 생성
 		Controller ct = new Controller();
 		while (select != 4) {
+			
+			
+			if (mp3.isPlaying()) {
+				mp3.stop();
+			}
+			mp3.play(".\\\\bgm\\intro.mp3");
+			try {
+				TimeUnit.SECONDS.sleep(1);  
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			//      .\\bgm\intro.mp3
 			System.out.print("[1]회원가입 [2]로그인 [3]랭킹확인 "
 					+ "[4]프로그램 종료  >> ");
 			select = sc.nextInt();
@@ -34,7 +52,7 @@ public class Main {
 				String id = sc.next();
 				System.out.print("Password를 입력해주세요 >>");
 				String pw = sc.next();
-
+				mp3.stop();
 				PlayerDTO dto = new PlayerDTO(id, pw);
 				ct.login(dto);
 				if(ct.bb == false) {
