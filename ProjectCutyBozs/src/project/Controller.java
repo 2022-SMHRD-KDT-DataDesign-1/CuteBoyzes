@@ -85,11 +85,8 @@ public class Controller {
 					play_db(dto,1);
 				} else if (lebel == 2) {
 					System.out.println("중 ㅋㅋ");
-<<<<<<< HEAD
 					play_db2(dto,1);
-=======
 					
->>>>>>> branch 'master' of https://github.com/2022-SMHRD-KDT-DataDesign-1/CuteBoyzes.git
 				} else if (lebel == 3) {
 					System.out.println("하 ㅋㅋ");
 					play_db3(dto,1);
@@ -197,15 +194,12 @@ public class Controller {
 				cnt++;
 				
 			}
-<<<<<<< HEAD
 			sum +=score;
 			sum += sum/20 ;
 			cnt++;
-=======
 			
 			
 
->>>>>>> branch 'master' of https://github.com/2022-SMHRD-KDT-DataDesign-1/CuteBoyzes.git
 		}
 		System.out.println("점수 >> "+sum);
 		
