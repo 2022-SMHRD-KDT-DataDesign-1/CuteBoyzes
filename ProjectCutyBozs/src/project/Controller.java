@@ -85,6 +85,7 @@ public class Controller {
 					play_db(dto,1);
 				} else if (lebel == 2) {
 					System.out.println("중 ㅋㅋ");
+					play_db2(dto,1);
 				} else if (lebel == 3) {
 					System.out.println("하 ㅋㅋ");
 				}
@@ -173,6 +174,7 @@ public class Controller {
 				
 			}
 			sum +=score;
+			sum += sum/20 ;
 			cnt++;
 		}
 		System.out.println("점수 >> "+sum);
@@ -181,6 +183,169 @@ public class Controller {
 
 	}
 
+public void play_db2(PlayerDTO dto, int range) {
+		
+		Scanner sc = new Scanner(System.in);
+		Random rd = new Random();
+		MP3Player mp3 = new MP3Player();
+
+		DAO dao = new DAO();
+
+		int cnt = 0;
+		int sum = 0;
+		int score = 0;
+		String[] arr = new String[10];
+		int[] raarr = new int[10];
+
+//		for (int i = 0; i < raarr.length; i++) {
+//			
+//			raarr[i] = rd.nextInt(0,1) + 1;
+//			for (int j = 0; j < i; j++) {
+//				if (raarr[i] == raarr[j]) {
+//					i--;
+//					break;
+//				}
+//			}
+//		}
+		System.out.println("ss");
+
+		for (int i = 0; i < arr.length; i++) {
+			System.out.print("\n" + (i + 1) + "번 문제 ");
+
+			if (mp3.isPlaying()) {
+				mp3.stop();
+			}
+
+			// // //  /// / // / dao.movie_dao(1) 임시로 dao.s_movie_dao(1); 로 바꿈 !!!!!
+			MovieDTO dto_movie = dao.j_movie_dao(1);
+			mp3.play(dto_movie.getPath());
+			try {
+				TimeUnit.SECONDS.sleep(5);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			mp3.stop();
+			
+			System.out.print("정답입력 >>");
+			
+			arr[cnt] = sc.nextLine();
+			
+			if(arr[cnt].equals(dto_movie.getTitle())) {
+				System.out.println("정답 ㅋㅋ ");
+				score+=10;
+				try {
+					TimeUnit.SECONDS.sleep(2);
+
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}else {
+				System.out.println("땡 ㅋㅋ");
+				score = 0;
+				System.out.println("정답은 "+dto_movie.getTitle()+"입니당");
+				try {
+					TimeUnit.SECONDS.sleep(2);
+
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				
+			}
+			sum +=score;
+			sum += sum/10 ;
+			cnt++;
+		}
+		System.out.println("점수 >> "+sum);
+		
+		dao.score_dao(sum, dto);
+
+	}
+
+public void play_db3(PlayerDTO dto, int range) {
+	
+	Scanner sc = new Scanner(System.in);
+	Random rd = new Random();
+	MP3Player mp3 = new MP3Player();
+
+	DAO dao = new DAO();
+
+	int cnt = 0;
+	int sum = 0;
+	int score = 0;
+	String[] arr = new String[10];
+	int[] raarr = new int[10];
+
+//	for (int i = 0; i < raarr.length; i++) {
+//		
+//		raarr[i] = rd.nextInt(0,1) + 1;
+//		for (int j = 0; j < i; j++) {
+//			if (raarr[i] == raarr[j]) {
+//				i--;
+//				break;
+//			}
+//		}
+//	}
+	System.out.println("ss");
+
+	for (int i = 0; i < arr.length; i++) {
+		System.out.print("\n" + (i + 1) + "번 문제 ");
+
+		if (mp3.isPlaying()) {
+			mp3.stop();
+		}
+
+		// // //  /// / // / dao.movie_dao(1) 임시로 dao.s_movie_dao(1); 로 바꿈 !!!!!
+		MovieDTO dto_movie = dao.h_movie_dao(1);
+		mp3.play(dto_movie.getPath());
+		try {
+			TimeUnit.SECONDS.sleep(5);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		mp3.stop();
+		
+		System.out.print("정답입력 >>");
+		
+		arr[cnt] = sc.nextLine();
+		
+		if(arr[cnt].equals(dto_movie.getTitle())) {
+			System.out.println("정답 ㅋㅋ ");
+			score+=10;
+			try {
+				TimeUnit.SECONDS.sleep(2);
+
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else {
+			System.out.println("땡 ㅋㅋ");
+			score = 0;
+			System.out.println("정답은 "+dto_movie.getTitle()+"입니당");
+			try {
+				TimeUnit.SECONDS.sleep(2);
+
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+		}
+		sum +=score;
+		cnt++;
+	}
+	System.out.println("점수 >> "+sum);
+	
+	dao.score_dao(sum, dto);
+
+}
+	
 	public void playOff() {
 		bb = false;
 	}
