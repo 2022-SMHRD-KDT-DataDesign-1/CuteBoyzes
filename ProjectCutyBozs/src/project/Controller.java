@@ -82,10 +82,10 @@ public class Controller {
 
 					System.out.println("상 ㅋㅋ");
 					// ct.안에있는 play메소드 호출
-					play_db(dto,1);
+					play_db(dto, 1);
 				} else if (lebel == 2) {
 					System.out.println("중 ㅋㅋ");
-					
+
 				} else if (lebel == 3) {
 					System.out.println("하 ㅋㅋ");
 				}
@@ -102,13 +102,13 @@ public class Controller {
 	}
 
 	public void play_db(PlayerDTO dto, int range) {
-		
+
 		Scanner sc = new Scanner(System.in);
 		Random rd = new Random();
 		MP3Player mp3 = new MP3Player();
 
 		DAO dao = new DAO();
-		String answer="";
+		String answer = "";
 		int cnt = 0;
 		int sum = 0;
 		int score = 0;
@@ -116,7 +116,7 @@ public class Controller {
 		int[] raarr = new int[10];
 
 		for (int i = 0; i < raarr.length; i++) {
-			
+
 			raarr[i] = rd.nextInt(12) + range;
 			for (int j = 0; j < i; j++) {
 				if (raarr[i] == raarr[j]) {
@@ -124,18 +124,18 @@ public class Controller {
 					break;
 				}
 			}
-//		}
+		}
 		System.out.println("ss");
 
-		for (int i1 = 0; i1 < arr.length; i1++) {
-			System.out.print("\n" + (i1 + 1) + "번 문제 ");
+		for (int i = 0; i < arr.length; i++) {
+			System.out.print("\n" + (i + 1) + "번 문제 ");
 
 			if (mp3.isPlaying()) {
 				mp3.stop();
 			}
 
-			// // //  /// / // / dao.h_movie_dao(1) 임시로 dao.s_movie_dao(1); 로 바꿈 !!!!!
-			MovieDTO dto_movie = dao.h_movie_dao(raarr[i1]);
+			// // // /// / // / dao.h_movie_dao(1) 임시로 dao.s_movie_dao(1); 로 바꿈 !!!!!
+			MovieDTO dto_movie = dao.h_movie_dao(raarr[i]);
 			mp3.play(dto_movie.getPath());
 			try {
 				TimeUnit.SECONDS.sleep(8);
@@ -147,10 +147,10 @@ public class Controller {
 
 			System.out.println("다시 듣겠습니까 ? >> ");
 			answer = sc.nextLine();
-			
-			if(answer.equals("네") || answer.equals("ㅇㅇ")) {
-				
-				dto_movie = dao.h_movie_dao(raarr[i1]);
+
+			if (answer.equals("네") || answer.equals("ㅇㅇ")) {
+
+				dto_movie = dao.h_movie_dao(raarr[i]);
 				mp3.play(dto_movie.getPath());
 				try {
 					TimeUnit.SECONDS.sleep(8);
@@ -159,52 +159,43 @@ public class Controller {
 					e.printStackTrace();
 				}
 				mp3.stop();
-			}else {
-				System.out.print("정답입력 >>");
-				
-				arr[cnt] = sc.nextLine();
-				
-				if(arr[cnt].equals(dto_movie.getTitle())) {
-					System.out.println("정답 ㅋㅋ ");
-					score+=10;
-					try {
-						TimeUnit.SECONDS.sleep(2);
+			} 
+			
+			System.out.print("정답입력 >>");
 
-						
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}else {
-					System.out.println("땡 ㅋㅋ");
-					score = 0;
-					System.out.println("정답은 "+dto_movie.getTitle()+"입니당");
-					try {
-						TimeUnit.SECONDS.sleep(2);
+			arr[cnt] = sc.nextLine();
 
-						
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					
-					
+			if (arr[cnt].equals(dto_movie.getTitle())) {
+				System.out.println("정답 ㅋㅋ ");
+				score += 10;
+				try {
+					TimeUnit.SECONDS.sleep(2);
+
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-				sum +=score;
-				cnt++;
-				
+			} else {
+				System.out.println("땡 ㅋㅋ");
+				score = 0;
+				System.out.println("정답은 " + dto_movie.getTitle() + "입니당");
+				try {
+					TimeUnit.SECONDS.sleep(2);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
 			}
-			
-			
+			sum += score;
+			cnt++;
 
 		}
-		System.out.println("점수 >> "+sum);
-		
+
+		System.out.println("점수 >> " + sum);
+
 		dao.score_dao(sum, dto);
-		}
 
 	}
 
-	public void playOff() {
-		bb = false;
-	}
 
 }
