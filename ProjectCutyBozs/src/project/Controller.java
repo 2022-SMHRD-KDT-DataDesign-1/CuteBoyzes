@@ -98,19 +98,37 @@ public class Controller {
 
 	public void play_db(PlayerDTO dto, int range) {
 
+		// 사용하려는 라이브러리 생성
 		Scanner sc = new Scanner(System.in);
 		Random rd = new Random();
 		MP3Player mp3 = new MP3Player();
-
+        
+		// DAO 객체생성 (Controller와 연결해야하기때문에)
 		DAO dao = new DAO();
+		
+		// play_db 에 들어가는 답(answer)변수 초기화
 		String answer = "";
-		int cnt = 0;
+
+		
+		// 테이블의 Score 컬럼에 더해줄값 초기화
 		int sum = 0;
+		// 테이블의 Score 컬럼에 들어갈값 초기화
 		int score = 0;
+		// 랜덤 함수의 최대값 정의
 		int max = 32;
+		
+		// 답을 담아줄 값 정의
 		String[] arr = new String[10];
+		
+		// arr 에 들어가는 인덱스 값 변수 
+		int cnt = 0;
+		
+		// 순서를 정해주는 list
 		int[] raarr = new int[10];
 
+		
+		
+		// 중복없이 raarr에 순서를 담아주는 과정
 		for (int i = 0; i < raarr.length; i++) {
 
 			raarr[i] = rd.nextInt(32) + range;
@@ -123,6 +141,7 @@ public class Controller {
 			}
 		}
 
+		// 1~10번 문제까지 반복하는 실행문
 		for (int i = 0; i < arr.length; i++) {
 			System.out.print("\n" + (i + 1) + "번 문제 ");
 
@@ -130,10 +149,15 @@ public class Controller {
 				mp3.stop();
 			}
 
+			
+			// 랜덤한 값에서도 위치에 맞는 값을 가져오기위해 MovieDTO타입의 dto_movie를 초기화 해준다
+			// = dao.s_movie_dao -> dao에서 만든 sql문을 통해서 값을 가져오게 하기 위해 선언
 			MovieDTO dto_movie = dao.s_movie_dao(raarr[i]);
+			
+			// mp3.play(경로==dto_movie.getPath())
 			mp3.play(dto_movie.getPath());
 			try {
-				TimeUnit.SECONDS.sleep(1);  //8
+				TimeUnit.SECONDS.sleep(8);  
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -141,14 +165,18 @@ public class Controller {
 			mp3.stop();
 
 			System.out.println("다시 듣겠습니까 ? >> ");
-			answer = sc.nextLine();
+			
+			// 위에 전역변수로 초기화했던 answer을 선언
+			// sc.nextLine() -> 띄어쓰기 인식이라고 하는데 인식이 안됨 ㅋ
+ 			answer = sc.nextLine();
 
+ 			// 다시 듣겠다고 하면
 			if (answer.equals("네") || answer.equals("ㅇㅇ")) {
-
+				// dto_movie에 dao.s_movie_dao() 에 raarr[i] 랜덤하게 넣은 값을 담아줌 
 				dto_movie = dao.s_movie_dao(raarr[i]);
 				mp3.play(dto_movie.getPath());
 				try {
-					TimeUnit.SECONDS.sleep(1); //8
+					TimeUnit.SECONDS.sleep(8); //8
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -158,23 +186,25 @@ public class Controller {
 
 			System.out.print("정답입력 >>");
 
+			// 답을 담아주는 arr[]에 정답을 담아준후 밑에 if문을 통해 비교해준다
 			arr[cnt] = sc.nextLine();
 
 			if (arr[cnt].equals(dto_movie.getTitle())) {
 				System.out.println("정답 ㅋㅋ ");
+				// 정답일때마다 10점씩 누적 축적
 				score += 10;
 				try {
-					TimeUnit.SECONDS.sleep(1); //2
+					TimeUnit.SECONDS.sleep(2); //2
 
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			} else {
 				System.out.println("땡 ㅋㅋ");
-				score = 0;
+				score = 0;                   // dto_movie.getTitle() 로 db에 저장되어있는 타이틀명을 가져온다
 				System.out.println("정답은 " + dto_movie.getTitle() + "입니당");
 				try {
-					TimeUnit.SECONDS.sleep(1);  //2
+					TimeUnit.SECONDS.sleep(2);  //2
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -189,7 +219,8 @@ public class Controller {
 		}
 
 		System.out.println("점수 >> " + sum);
-
+		
+		// dao안에 있는 score_dao(변수1, 변수2)에 값을 보내줌
 		dao.score_dao(sum, dto);
 
 	}
@@ -319,7 +350,6 @@ public class Controller {
 				mp3.stop();
 			}
 
-			// // // /// / // / dao.h_movie_dao(1) 임시로 dao.s_movie_dao(1); 로 바꿈 !!!!!
 			MovieDTO dto_movie = dao.h_movie_dao(raarr[i]);
 			mp3.play(dto_movie.getPath());
 			try {
