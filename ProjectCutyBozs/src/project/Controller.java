@@ -115,27 +115,27 @@ public class Controller {
 		String[] arr = new String[10];
 		int[] raarr = new int[10];
 
-//		for (int i = 0; i < raarr.length; i++) {
-//			
-//			raarr[i] = rd.nextInt(0,1) + 1;
-//			for (int j = 0; j < i; j++) {
-//				if (raarr[i] == raarr[j]) {
-//					i--;
-//					break;
-//				}
-//			}
+		for (int i = 0; i < raarr.length; i++) {
+			
+			raarr[i] = rd.nextInt(12) + range;
+			for (int j = 0; j < i; j++) {
+				if (raarr[i] == raarr[j]) {
+					i--;
+					break;
+				}
+			}
 //		}
 		System.out.println("ss");
 
-		for (int i = 0; i < arr.length; i++) {
-			System.out.print("\n" + (i + 1) + "번 문제 ");
+		for (int i1 = 0; i1 < arr.length; i1++) {
+			System.out.print("\n" + (i1 + 1) + "번 문제 ");
 
 			if (mp3.isPlaying()) {
 				mp3.stop();
 			}
 
 			// // //  /// / // / dao.h_movie_dao(1) 임시로 dao.s_movie_dao(1); 로 바꿈 !!!!!
-			MovieDTO dto_movie = dao.h_movie_dao(1);
+			MovieDTO dto_movie = dao.h_movie_dao(raarr[i1]);
 			mp3.play(dto_movie.getPath());
 			try {
 				TimeUnit.SECONDS.sleep(8);
@@ -150,7 +150,7 @@ public class Controller {
 			
 			if(answer.equals("네") || answer.equals("ㅇㅇ")) {
 				
-				dto_movie = dao.h_movie_dao(1);
+				dto_movie = dao.h_movie_dao(raarr[i1]);
 				mp3.play(dto_movie.getPath());
 				try {
 					TimeUnit.SECONDS.sleep(8);
@@ -199,6 +199,7 @@ public class Controller {
 		System.out.println("점수 >> "+sum);
 		
 		dao.score_dao(sum, dto);
+		}
 
 	}
 
