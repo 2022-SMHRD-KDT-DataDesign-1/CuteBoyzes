@@ -4,7 +4,7 @@ public class MovieDTO {
 	
 	private String level;
 	private String title;
-	private String path;
+	private String path; 
 	
 	
 	public MovieDTO(String level, String title, String path) {
