@@ -88,6 +88,7 @@ public class Controller {
 					play_db2(dto,1);
 				} else if (lebel == 3) {
 					System.out.println("하 ㅋㅋ");
+					play_db3(dto,1);
 				}
 
 			} else if (yn.equals("N")) {
