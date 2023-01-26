@@ -175,12 +175,70 @@ public class DAO {
 	}
 	
 	
-	public MovieDTO movie_dao(int movie_number) {
+	public MovieDTO s_movie_dao(int movie_number) {
 		MovieDTO movie = null;
 		
 		try {
 			getCon();
-			String sql = "select * from movie where movie_number = ? ";
+			String sql = "select * from movie where movie_number = ? and m_level = '상' ";
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, movie_number);
+			
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				movie_number = rs.getInt("movie_number");
+				String level = rs.getString("m_level");
+				String title = rs.getString("title");
+				String path = rs.getString("m_path");
+				movie = new MovieDTO(movie_number, level, title, path);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			getClose();
+		}
+		return movie;
+
+	}
+	
+	
+	public MovieDTO j_movie_dao(int movie_number) {
+		MovieDTO movie = null;
+		
+		try {
+			getCon();
+			String sql = "select * from movie where movie_number = ? and m_level = '중'  ";
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, movie_number);
+			
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				movie_number = rs.getInt("movie_number");
+				String level = rs.getString("m_level");
+				String title = rs.getString("title");
+				String path = rs.getString("m_path");
+				movie = new MovieDTO(movie_number, level, title, path);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			getClose();
+		}
+		return movie;
+
+	}
+	
+	
+	public MovieDTO h_movie_dao(int movie_number) {
+		MovieDTO movie = null;
+		
+		try {
+			getCon();
+			String sql = "select * from movie where movie_number = ? and m_level = '하' ";
 			
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, movie_number);

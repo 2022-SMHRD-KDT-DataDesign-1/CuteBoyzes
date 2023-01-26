@@ -133,7 +133,8 @@ public class Controller {
 				mp3.stop();
 			}
 
-			MovieDTO dto_movie = dao.movie_dao(1);
+			// // //  /// / // / dao.movie_dao(1) 임시로 dao.s_movie_dao(1); 로 바꿈 !!!!!
+			MovieDTO dto_movie = dao.s_movie_dao(1);
 			mp3.play(dto_movie.getPath());
 			try {
 				TimeUnit.SECONDS.sleep(5);
