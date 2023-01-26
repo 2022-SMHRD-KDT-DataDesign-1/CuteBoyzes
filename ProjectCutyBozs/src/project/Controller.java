@@ -309,17 +309,9 @@ public class Controller {
 		int[] raarr = new int[10];
 
 		for (int i = 0; i < raarr.length; i++) {
+			raarr[i] = i+1;
 
-			raarr[i] = rd.nextInt(12) + range;
-
-			for (int j = 0; j < i; j++) {
-				if (raarr[i] == raarr[j]) {
-					i--;
-					break;
-				}
-			}
 		}
-		System.out.println("ss");
 		for (int i = 0; i < arr.length; i++) {
 			System.out.print("\n" + (i + 1) + "번 문제 ");
 
