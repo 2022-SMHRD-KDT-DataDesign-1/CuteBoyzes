@@ -180,7 +180,7 @@ public class DAO {
 		
 		try {
 			getCon();
-			String sql = "select * from movie where movie_number = ? and m_level = '상' ";
+			String sql = "select * from movie where movie_number = ?";
 			
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, movie_number);
@@ -209,7 +209,7 @@ public class DAO {
 		
 		try {
 			getCon();
-			String sql = "select * from movie where movie_number = ? and m_level = '중'  ";
+			String sql = "select * from movie where movie_number = ? ";
 			
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, movie_number);
@@ -238,7 +238,7 @@ public class DAO {
 		
 		try {
 			getCon();
-			String sql = "select * from movie where movie_number = ? and m_level = '하' ";
+			String sql = "select * from movie where movie_number = ?";
 			
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, movie_number);

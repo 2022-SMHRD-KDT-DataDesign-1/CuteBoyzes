@@ -13,6 +13,7 @@ public class MovieDTO {
 		this.level = level;
 		this.title = title;
 		this.path = path;
+		
 	}
 	public int getMovie_number() {
 		return movie_number;
