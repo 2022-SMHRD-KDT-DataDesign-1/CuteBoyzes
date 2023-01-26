@@ -13,6 +13,7 @@ public class DAO {
 	Connection conn = null;
 	PreparedStatement psmt = null;
 	ResultSet rs = null;
+
 	// db에 연결하기 위한 과정을 getCon으로 만듦
 	public void getCon() {
 		try {
@@ -30,7 +31,7 @@ public class DAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void getClose() {
 		// 자원반납
 		// psmt -> conn
@@ -73,16 +74,13 @@ public class DAO {
 			System.out.println("회원 가입 : SQL 전송 실패");
 			e.printStackTrace();
 		} finally {
-			//finally를 나나탠내용
+			// finally를 나나탠내용
 			getClose();
 		}
 
 		return row;
 	}
-	
-	
-	
-	
+
 	public boolean login(PlayerDTO dto) {
 		boolean res = false;
 
@@ -147,6 +145,89 @@ public class DAO {
 		return row;
 
 	}
+	
+    // 랭크나열 DAO
+	public ArrayList<PlayerDTO> rank_dao() {
+		ArrayList<PlayerDTO> list = new ArrayList<PlayerDTO>();
 
+		try {
+
+			getCon();
+			String sql = "select * from player order by score desc";
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+				String id = rs.getString("id");
+				String pw = rs.getString("pw");
+				String nick = rs.getString("nick");
+				int score = rs.getInt("score");
+				PlayerDTO dto = new PlayerDTO(id, pw, nick, score);
+				list.add(dto);
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			getClose();
+		}
+		return list;
+	}
+	
+	
+	public MovieDTO movie_dao(int movie_number) {
+		MovieDTO movie = null;
+		
+		try {
+			getCon();
+			String sql = "select * from movie where movie_number = ? ";
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, movie_number);
+			
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				movie_number = rs.getInt("movie_number");
+				String level = rs.getString("m_level");
+				String title = rs.getString("title");
+				String path = rs.getString("m_path");
+				movie = new MovieDTO(movie_number, level, title, path);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			getClose();
+		}
+		return movie;
+
+	}
+	
+	// 스코어 갱신 
+	public void score_dao(int sum, PlayerDTO dto) {
+		try {
+			getCon();
+			if(sum>dto.getScore()) {
+				String sql = "update player set score = ? where id = ?";
+				psmt = conn.prepareStatement(sql);
+				psmt.setInt(1, sum);
+				psmt.setString(2, dto.getId());
+				psmt.executeUpdate();
+			
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			getClose();
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 
 }

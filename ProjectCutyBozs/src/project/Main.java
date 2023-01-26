@@ -1,5 +1,6 @@
 package project;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -38,13 +39,31 @@ public class Main {
 				ct.login(dto);
 				if(ct.bb == false) {
 					break;
-				}else if(select ==3) {
-					
 				}
 				
 				
+				
 
-			} else if (select == 4) {
+			} 
+			// 랭킹확인 
+			else if(select ==3) {
+				DAO dao = new DAO();
+				System.out.println("====== 랭킹확인 ======");
+				System.out.println("rank"+"\t"+"nick"+"\t"+"score");
+				System.out.println("===================");
+				ArrayList<PlayerDTO> list = dao.rank_dao();
+				
+				for(int i =0; i<list.size(); i++) {
+					System.out.print(i+1+"위"+"\t");
+					System.out.print(list.get(i).getNick()+"\t");
+					System.out.print(list.get(i).getScore()+"\t");
+					System.out.println();
+				}
+				System.out.println();
+
+				
+			}
+			else if (select == 4) {
 
 				System.out.print("프로그램 종료");
 				break;

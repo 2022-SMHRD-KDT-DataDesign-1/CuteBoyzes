@@ -1,6 +1,7 @@
 package project;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -10,27 +11,26 @@ public class Controller {
 	int now = 0;
 	// bb은 뭘 뜻 하는 거지?
 	boolean bb = true;
+
+	int sum = 0;
+	int score = 0;
+	int cnt = 0;
 	//
 	DAO dao = new DAO();
 	Scanner sc = new Scanner(System.in);
 	// mp3 파일 재생 라이브러리 -- > musicPlayer 참조
 	MP3Player mp3 = new MP3Player();
-	
 
 	// MovieDTO값을 받는 ArrayList 초기화
 	ArrayList<MovieDTO> movielist = new ArrayList<>();
-	
-	
+
 	String basicPath = "C://movie/";
-	
+
 	public void moviesound() {
-		
-		movielist.add(new MovieDTO("상", "곡성", "C://movie/곡성 - 곡성.mp3"));
+
+		// movielist.add(new MovieDTO("상", "곡성", "C://movie/곡성 - 곡성.mp3"));
 
 	}
-	
-
-
 
 	// 회원가입
 	public void join(PlayerDTO dto) {
@@ -41,16 +41,16 @@ public class Controller {
 		else
 			System.out.println("회원가입 실패!");
 	}
-	
+
 	// 로그인
 	public void login(PlayerDTO dto) {
-		
+
 		// DAO 객체 생성
 		DAO dao = new DAO();
-		
+
 		// 게임시작 여부 변수 초기화
 		String yn;
-		
+
 		// 난이도 변수 초기화
 		int lebel;
 
@@ -79,10 +79,10 @@ public class Controller {
 
 				Controller ct = new Controller();
 				if (lebel == 1) {
-					
+
 					System.out.println("상 ㅋㅋ");
 					// ct.안에있는 play메소드 호출
-					play();
+					play_db(dto,1);
 				} else if (lebel == 2) {
 					System.out.println("중 ㅋㅋ");
 				} else if (lebel == 3) {
@@ -100,30 +100,88 @@ public class Controller {
 
 	}
 
-	
-	public MovieDTO play() {
-		System.out.println("재밌는 게임");
+	public void play_db(PlayerDTO dto, int range) {
 		
-		// 값이 추가된 Arraylist 호출
-		moviesound();
+		Scanner sc = new Scanner(System.in);
+		Random rd = new Random();
+		MP3Player mp3 = new MP3Player();
 
-		
-	    MovieDTO vo = movielist.get(now);
-		
-		if(mp3.isPlaying()) {
+		DAO dao = new DAO();
+
+		int cnt = 0;
+		int sum = 0;
+		int score = 0;
+		String[] arr = new String[10];
+		int[] raarr = new int[10];
+
+//		for (int i = 0; i < raarr.length; i++) {
+//			
+//			raarr[i] = rd.nextInt(0,1) + 1;
+//			for (int j = 0; j < i; j++) {
+//				if (raarr[i] == raarr[j]) {
+//					i--;
+//					break;
+//				}
+//			}
+//		}
+		System.out.println("ss");
+
+		for (int i = 0; i < arr.length; i++) {
+			System.out.print("\n" + (i + 1) + "번 문제 ");
+
+			if (mp3.isPlaying()) {
+				mp3.stop();
+			}
+
+			MovieDTO dto_movie = dao.movie_dao(1);
+			mp3.play(dto_movie.getPath());
+			try {
+				TimeUnit.SECONDS.sleep(5);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			mp3.stop();
-		}
-		
-		mp3.play(vo.getPath());
-		
-		return vo;
 			
+			System.out.print("정답입력 >>");
+			
+			arr[cnt] = sc.nextLine();
+			
+			if(arr[cnt].equals(dto_movie.getTitle())) {
+				System.out.println("정답 ㅋㅋ ");
+				score+=10;
+				try {
+					TimeUnit.SECONDS.sleep(2);
+
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}else {
+				System.out.println("땡 ㅋㅋ");
+				score = 0;
+				System.out.println("정답은 "+dto_movie.getTitle()+"입니당");
+				try {
+					TimeUnit.SECONDS.sleep(2);
+
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				
+			}
+			sum +=score;
+			cnt++;
+		}
+		System.out.println("점수 >> "+sum);
 		
+		dao.score_dao(sum, dto);
+
 	}
-	
+
 	public void playOff() {
 		bb = false;
 	}
-	
 
 }
