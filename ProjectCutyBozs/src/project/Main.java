@@ -26,18 +26,17 @@ public class Main extends Artlist {
 
 			al.main2(args);
 			mp3.stop();
-			
+
 		} catch (InterruptedException e1) {
 		}
 
 		try {
-			TimeUnit.SECONDS.sleep(2);
+			TimeUnit.SECONDS.sleep(1);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		System.out.println();
-
 
 		while (select != 4) {
 
@@ -51,15 +50,13 @@ public class Main extends Artlist {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			System.out.println(
-					" =========================================");
-			// .\\bgm\intro.mp3
-			System.out
-					.print(" [1]회원가입 [2]로그인 [3]랭킹확인 [4]프로그램 종료  >>  ");
-			System.out.println();
-			System.out.println("  =========================================");
-
+			System.out.println(" =========================================");
+			System.out.println(" [1]회원가입 [2]로그인 [3]랭킹확인 [4]프로그램 종료 ");
+			System.out.println(" =========================================");
+			System.out.print(" >> ");
 			select = sc.nextInt();
+
+			System.out.println();
 
 			if (select == 1) {
 				System.out.println("=========================================");
@@ -82,15 +79,15 @@ public class Main extends Artlist {
 				ct.join(dto);
 
 			} else if (select == 2) {
-				System.out.println("=========================================");
-				System.out.print("ID를 입력해주세요 >> ");
-				System.out.println();
-				System.out.println("=========================================");
+				System.out.println("=====================");
+				System.out.println("ID를 입력해주세요 ");
+				System.out.println("=====================");
+				System.out.print(" >> ");
 				String id = sc.next();
-				System.out.println("=========================================");
+				System.out.println("=====================");
 				System.out.print("Password를 입력해주세요 >> ");
-				System.out.println();
-				System.out.println("=========================================");
+				System.out.println("=====================");
+				System.out.print(" >> ");
 				String pw = sc.next();
 				mp3.stop();
 				PlayerDTO dto = new PlayerDTO(id, pw);
@@ -125,8 +122,52 @@ public class Main extends Artlist {
 				}
 
 			} else if (select == 4) {
+				mp3.stop();
+				System.out.println("          이상으로");
+				if (mp3.isPlaying()) {
+					mp3.stop();
+				}
+				mp3.play(".\\\\bgm\\rule.mp3");
+				try {
+					TimeUnit.SECONDS.sleep(1);
 
-				System.out.print("프로그램 종료");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				mp3.stop();
+				System.out.println();
+				System.out.println("      귀염둥이조 였습니다.");
+				if (mp3.isPlaying()) {
+					mp3.stop();
+				}
+				mp3.play(".\\\\bgm\\rule.mp3");
+				try {
+					TimeUnit.SECONDS.sleep(1);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				mp3.stop();
+				System.out.println();
+				System.out.println("   감사합니다 ! ! 데이터디자인반 화이팅 ! !");
+				if (mp3.isPlaying()) {
+					mp3.stop();
+				}
+				mp3.play(".\\\\bgm\\opening.mp3");
+				try {
+					TimeUnit.SECONDS.sleep(3);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				mp3.stop();
+				try {
+					TimeUnit.SECONDS.sleep(1);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
 				mp3.stop();
 				break;
 
